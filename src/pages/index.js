@@ -40,8 +40,29 @@ export default function Home() {
 
     instance.setData({ data: formatDataPoint(data) });
 
-    const objects = await fetchData("/api/objects");
+    const objects = await fetchData("/api/heatmap/objects");
     setObjects(objects);
+  }
+
+  async function handleOnChangeObject(value) {
+    let data = heatmap;
+
+    if (value !== "todos") {
+      data = heatmap.filter(({ object }) => object === value);
+    }
+
+    heatmapInstance.setData({ data: [] });
+
+    const maxLengh = 500;
+
+    if (data.length <= maxLengh) {
+      console.log(data);
+      for (const item of formatDataPoint(data)) {
+        heatmapInstance.addData(item);
+      }
+    } else {
+      heatmapInstance.setData({ data: formatDataPoint(data) });
+    }
   }
 
   return (
@@ -69,7 +90,10 @@ export default function Home() {
         <div>
           <div className={styles.selectContainer}>
             <label htmlFor="dropdown">Selecione o objeto</label>
-            <select id="dropdown">
+            <select
+              id="dropdown"
+              onChange={(e) => handleOnChangeObject(e.target.value)}
+            >
               <option value="todos" key="todos" defaultValue={true}>
                 todos
               </option>
