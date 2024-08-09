@@ -4,6 +4,18 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const [objects, setObjects] = useState([]);
 
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const heatmap = document.getElementById("heatmapContainer");
+        heatmap.style.backgroundImage = `url(${reader.result})`;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.container_1}>
@@ -13,7 +25,12 @@ export default function Home() {
       <div className={styles.container_2}>
         <div className={styles.inputContainer}>
           <label htmlFor="input">Selecione uma imagem</label>
-          <input id="input" type="file" accept="image/*" />
+          <input
+            id="input"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
         </div>
         <div className={styles.createButtonContainer}>
           <button className={styles.createButton}>Criar mapa de calor</button>
