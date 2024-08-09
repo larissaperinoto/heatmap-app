@@ -1,5 +1,6 @@
 import { useState } from "react";
 import h337 from "heatmap.js";
+import html2canvas from "html2canvas";
 import styles from "../styles/Home.module.css";
 import { fetchData } from "./utils/fetchData";
 
@@ -56,13 +57,24 @@ export default function Home() {
     const maxLengh = 500;
 
     if (data.length <= maxLengh) {
-      console.log(data);
       for (const item of formatDataPoint(data)) {
         heatmapInstance.addData(item);
       }
     } else {
       heatmapInstance.setData({ data: formatDataPoint(data) });
     }
+  }
+
+  async function handleDownloadHeatmap() {
+    const div = document.getElementById("heatmapContainer");
+
+    html2canvas(div).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = "heatmap.png";
+      link.click();
+    });
   }
 
   return (
@@ -107,7 +119,7 @@ export default function Home() {
             </select>
           </div>
           <div className={styles.downloadContainer}>
-            <button>Fazer download</button>
+            <button onClick={handleDownloadHeatmap}>Fazer download</button>
           </div>
         </div>
       </div>
