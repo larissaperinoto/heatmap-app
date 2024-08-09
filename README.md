@@ -1,40 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Heatmap App
 
-## Getting Started
+### Objetivo
 
-First, run the development server:
+A aplicação é um sistema que permite criar um mapa de calor em cima de uma imagem préviamente selecionada.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Tecnologias e Ferramentas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Node.Js](https://nodejs.org/en)
+- [React.Js](https://react.dev/)
+- [Next.Js](https://nextjs.org/)
+- [Heatmap.Js](https://www.patrick-wied.at/static/heatmapjs/)
+- [html2canvas](https://html2canvas.hertzen.com/)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Pré requisitos para rodar o projeto
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Node.Js (versão >= 18.19)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Rodando o projeto localmente
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Clone este repositório
 
-## Learn More
+        git clone git@github.com:larissaperinoto/heatmap-app.git
 
-To learn more about Next.js, take a look at the following resources:
+Instale as dependências
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+        npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Inicie a aplicação do cliente em modo de desenvolvimento
 
-## Deploy on Vercel
+        npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Ou faça a inicialização padrão com o comando abaixo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+        npm run build && npm start
+
+Abra em seu navegador o endereço local da aplicação do cliente
+
+        http://localhost:3000
+
+### Inserindo novos dados
+
+Os dados utilizados na aplicação simulam um JSON de saída do Elasticsearch. Para alterar os valores dos pontos de calor busque pelo arquivo **data.json** na raíz do projeto.
+
+Os dados precisam seguir o seguinte padrão
+
+        {
+            hits: {
+                hits: [
+                    fields: {
+                         "deepstream-msg":[
+                            "291|317.41|219.78|467.849|480|person|AREA1",
+                            "8|268.393|106.3454|316.347|200.22|chair|AREA1"
+                        ]
+                    }
+                ]
+            }
+        }
+
+Em **"deepstream-msg"** encontram-se as informações de objetos detectados e sua posição, que podem ser interpretados da seguinte forma:
+
+        ID | minX | minY | maxX | maxY | objeto | região
+
