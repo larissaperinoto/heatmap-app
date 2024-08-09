@@ -2,7 +2,7 @@ import { useState } from "react";
 import h337 from "heatmap.js";
 import html2canvas from "html2canvas";
 import styles from "../styles/Home.module.css";
-import { fetchData } from "./utils/fetchData";
+import { fetchData } from "../utils/fetchData";
 
 export default function Home() {
   const [heatmap, setHeatmap] = useState([]);

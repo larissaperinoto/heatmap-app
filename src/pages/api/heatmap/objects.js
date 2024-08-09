@@ -1,5 +1,5 @@
-import { readFile } from "@/pages/utils/readFile";
-import { httpStatus } from "@/pages/utils/statusHttp";
+import { readFile } from "../../../utils/readFile";
+import { httpStatus } from "../../../utils/statusHttp";
 
 export default async function handler(_req, res) {
   try {
