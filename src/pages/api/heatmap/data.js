@@ -1,6 +1,6 @@
-import { httpStatus } from "../../../utils/statusHttp";
-import { calculateCentroidBoundingBox } from "../../../utils/boundingBox";
-import { readFile } from "../../../utils/readFile";
+import { httpStatus } from "@/utils/statusHttp";
+import { calculateCentroidBoundingBox } from "@/utils/boundingBox";
+import { readFile } from "@/utils/readFile";
 
 export default async function handler(_req, res) {
   try {

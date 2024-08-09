@@ -1,6 +1,7 @@
 import path from "path";
+import fs from "fs";
 
-export function readFile(fs) {
+export function readFile() {
   try {
     const filePath = path.join(process.cwd(), "data.json");
     const data = fs.readFileSync(filePath, "utf8");
