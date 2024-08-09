@@ -1,8 +1,12 @@
 import { useState } from "react";
+import h337 from "heatmap.js";
 import styles from "../styles/Home.module.css";
+import { fetchData } from "./utils/fetchData";
 
 export default function Home() {
+  const [heatmap, setHeatmap] = useState([]);
   const [objects, setObjects] = useState([]);
+  const [heatmapInstance, setHeatmapInstance] = useState();
 
   function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -14,6 +18,30 @@ export default function Home() {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  function formatDataPoint(heatmap) {
+    return heatmap.map(({ x, y }) => {
+      return { x, y };
+    });
+  }
+
+  async function handleCreateHeatmap() {
+    const data = await fetchData("/api/heatmap/data");
+    setHeatmap(data);
+
+    const config = {
+      container: document.getElementById("heatmapContainer"),
+    };
+
+    const instance = h337.create(config);
+
+    setHeatmapInstance(instance);
+
+    instance.setData({ data: formatDataPoint(data) });
+
+    const objects = await fetchData("/api/objects");
+    setObjects(objects);
   }
 
   return (
@@ -33,7 +61,9 @@ export default function Home() {
           />
         </div>
         <div className={styles.createButtonContainer}>
-          <button className={styles.createButton}>Criar mapa de calor</button>
+          <button className={styles.createButton} onClick={handleCreateHeatmap}>
+            Criar mapa de calor
+          </button>
         </div>
 
         <div>
