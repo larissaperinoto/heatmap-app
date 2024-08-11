@@ -33,6 +33,8 @@ export default function Home() {
 
     const config = {
       container: document.getElementById("heatmapContainer"),
+      radius: 20,
+      blur: 0.75,
     };
 
     const instance = h337.create(config);
