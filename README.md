@@ -11,10 +11,12 @@ A aplicação é um sistema que permite criar um mapa de calor em cima de uma im
 - [Next.Js](https://nextjs.org/)
 - [Heatmap.Js](https://www.patrick-wied.at/static/heatmapjs/)
 - [html2canvas](https://html2canvas.hertzen.com/)
+- [Docker](https://www.docker.com/)
 
 ### Pré requisitos para rodar o projeto
 
 - Node.Js (versão >= 18.19)
+- Docker
 
 ### Rodando o projeto localmente
 
@@ -22,19 +24,15 @@ Clone este repositório
 
         git clone git@github.com:larissaperinoto/heatmap-app.git
 
-Instale as dependências
+Faça o build da imagem
 
-        npm install
+        docker build --tag=heatmap .
 
-Inicie a aplicação do cliente em modo de desenvolvimento
+Rode o container
 
-        npm run dev
+        docker run -p 3000:3000 heatmap
 
-Ou faça a inicialização padrão com o comando abaixo
-
-        npm run build && npm start
-
-Abra em seu navegador o endereço local da aplicação do cliente
+Abra em seu navegador o endereço local da aplicação
 
         http://localhost:3000
 
@@ -60,4 +58,3 @@ Os dados precisam seguir o seguinte padrão
 Em **"deepstream-msg"** encontram-se as informações de objetos detectados e sua posição, que podem ser interpretados da seguinte forma:
 
         ID | minX | minY | maxX | maxY | objeto | região
-
